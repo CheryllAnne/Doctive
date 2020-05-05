@@ -1,0 +1,9 @@
+{
+    "require": {
+        "php": ">=7.2",
+        "ext-json": "*",
+        "twig/twig": "^2.0",
+        "slim/slim": "3.*",
+        "kreait/firebase-php": "^4.35"
+    }
+}

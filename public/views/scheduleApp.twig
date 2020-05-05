@@ -1,0 +1,191 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Doctive</title>
+    <meta name="description" content="Doctive">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+    <link rel="stylesheet" href="/res/css/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/res/dist/bootstrap-clockpicker.min.css">
+    <link rel="stylesheet" href="/res/css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/res/css/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="/res/css/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="/res/css/selectFX/css/cs-skin-elastic.css">
+
+    <link rel="stylesheet" href="/res/css/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+<!-- Left Panel -->
+
+<aside id="left-panel" class="left-panel">
+    <nav class="navbar navbar-expand-sm navbar-default">
+
+        <div class="navbar-header">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="/"><img src="images/logo.png" alt="Doctive"></a>
+            <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+        </div>
+
+        <div id="main-menu" class="main-menu collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/adminHome"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                </li>
+                <h3 class="menu-title">Administration</h3><!-- /.menu-title -->
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Register New Patient</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="menu-icon fa fa-th"></i><a href="/registerPatient">Registration Form</a></li>
+                        {#                        <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>#}
+                    </ul>
+                </li>
+                <li>
+                    <a href="/scheduleApp"> <i class="menu-icon ti-email"></i> Schedule Appointments </a>
+                </li>
+                <li>
+                    <a href="/v1/patient/viewAppointment"> <i class="menu-icon ti-email"></i> Appointments </a>
+                </li>
+                <li>
+                    <a href="/v1/patient/view"> <i class="menu-icon ti-email"></i> All Patients </a>
+                </li>
+
+
+                <h3 class="menu-title">Behabit - Doctive</h3><!-- /.menu-title -->
+
+
+                <li>
+                    <a href="/v1/patient/behabitUsers"> <i class="menu-icon ti-email"></i>List of Users </a>
+                </li>
+                <li>
+                    <a href="/dataUpdate"> <i class="menu-icon ti-email"></i>Data Update </a>
+                </li>
+
+                <h3 class="menu-title">Doctors</h3><!-- /.menu-title -->
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Doctors List</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Specialists</a></li>
+                        <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">General Physician</a></li>
+                        <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">On Duty</a></li>
+                    </ul>
+                </li>
+
+                <h3 class="menu-title">Others</h3><!-- /.menu-title -->
+
+                <li>
+                    <a href="/adminRegister"> <i class="menu-icon ti-email"></i>Register New Admin </a>
+                </li>
+                <li>
+                    <a href="/doctorRegister"> <i class="menu-icon ti-email"></i>Register New Doctor </a>
+                </li>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</aside><!-- /#left-panel -->
+
+<!-- Left Panel -->
+
+<div class="col-lg-6">
+
+    <div class="card">
+
+        <div class="card-header">
+            <strong>Schedule Appointment</strong>
+        </div>
+        <div class="card-body card-block">
+            <form action="/v1/patient/app" method="post" enctype="multipart/form-data" class="form-horizontal">
+                {#                    <div class="row form-group">#}
+                {#                        <div class="col col-md-3"><label class=" form-control-label">Static</label></div>#}
+                {#                        <div class="col-12 col-md-9">#}
+                {#                            <p class="form-control-static">Username</p>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Full Name</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="name" placeholder="Name" class="form-control"><small class="form-text text-muted">Patient's full name as per NRIC</small></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Identification Card No.</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="icNo" placeholder="IC No." class="form-control"><small class="form-text text-muted">IC number without '-'</small></div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="select" class=" form-control-label">Doctor Name</label></div>
+                    <div class="col-12 col-md-9">
+                        <select name="drName" id="select" class="form-control">
+                            <option value="0">Please select</option>
+                            <option value="Dr. One">Dr. One</option>
+                            <option value="Dr. Two">Dr. Two</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="date-input" class=" form-control-label">Appointment Date</label></div>
+                    <div class="col-12 col-md-9"><input type="date" id="text-input" name="date" placeholder="" class="form-control"><small class="form-text text-muted"></small></div>
+                </div>
+
+                <div class="row form-group">
+{#                    <div class="input-group clockpicker">#}
+{#                        <input type="text" class="form-control" value="09:30">#}
+{#                        <span class="input-group-addon">#}
+{#                        <span class="glyphicon glyphicon-time"></span>#}
+{#                        </span>#}
+{#                    </div>#}
+{#                    <script type="text/javascript">#}
+{#                        $('.clockpicker').clockpicker();#}
+{#                    </script>#}
+
+                    <div class="col col-md-3"><label for="input_starttime">Appointment Time</label></div>
+                    <div class="col-12 col-md-9"><input placeholder="Selected time" type="time" id="input_starttime" name="time" class="form-control timepicker"></div>
+
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="email-input" class=" form-control-label">Remarks</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="remarks" placeholder="" class="form-control"></div>
+                </div>
+
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> Submit
+                    </button>
+                    <button type="reset" class="btn btn-danger btn-sm">
+                        <i class="fa fa-ban"></i> Reset
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <br/>{{ session.add }}{{ session.error }}<br/>
+
+</div>
+
+<script>
+    $('#input_starttime').pickatime({
+// Light or Dark theme
+        darktheme: true
+    });
+</script>
+
+</body>
+
+
