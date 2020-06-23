@@ -30,6 +30,7 @@
 
 </head>
 
+<body>
 <!-- Left Panel -->
 
 <aside id="left-panel" class="left-panel">
@@ -40,38 +41,29 @@
                 <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand" href="/"><img src="images/logo.png" alt="Doctive"></a>
-            <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+{#            <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>#}
         </div>
 
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="/doctorHome"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="/doctorHome"> <i class="menu-icon fa fa-home"></i>Dashboard </a>
                 </li>
                 <h3 class="menu-title">Hospital Patients</h3><!-- /.menu-title -->
 
                 <li>
-                    <a href="/v1/doctor/viewAppointment"> <i class="menu-icon ti-email"></i> View My Appointments </a>
+                    <a href="/v1/doctor/viewAppointment"> <i class="menu-icon ti-bell"></i> View My Appointments </a>
                 </li>
                 <li>
-                    <a href="/v1/doctor/view"> <i class="menu-icon ti-email"></i> View My Patients </a>
+                    <a href="/v1/doctor/view"> <i class="menu-icon ti-user"></i> View My Patients </a>
                 </li>
-                <li>
-                    <a href="/v1/patient/view"> <i class="menu-icon ti-email"></i> Search Patient Record </a>
-                </li>
-                {#                <li>#}
-                {#                    <a href="/v1/patient/view"> <i class="menu-icon ti-email"></i> Prescriptions </a>#}
-                {#                </li>#}
 
                 <!--------------------------------------- Behabit Segment --------------------------------------------->
 
                 <h3 class="menu-title">Behabit</h3><!-- /.menu-title -->
 
                 <li>
-                    <a href="/v1/doctor/behabitUsers"> <i class="menu-icon ti-email"></i>List of Users </a>
-                </li>
-                <li>
-                    <a href="widgets.html"> <i class="menu-icon ti-email"></i>Analyze Users </a>
+                    <a href="/v1/doctor/behabitUsers"> <i class="menu-icon ti-bar-chart"></i>List of Users </a>
                 </li>
 
                 <!--------------------------------------- Behabit Segment --------------------------------------------->
@@ -172,7 +164,7 @@
             <div class="col-sm-5">
                 <div class="user-area dropdown float-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                        <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="Doctor">
                     </a>
 
                     <div class="user-menu dropdown-menu">
@@ -253,6 +245,7 @@
                                     <th>Weight</th>
                                     <th>Height</th>
                                     <th>BMI</th>
+                                    <th>BMR</th>
                                     <th>Smoker</th>
                                 </tr>
                                 </thead>
@@ -266,9 +259,10 @@
                                         <td>{{ behabitUsers[i].weight }}</td>
                                         <td>{{ behabitUsers[i].height }}</td>
                                         <td>{{ behabitUsers[i].BMI }}</td>
+                                        <td>{{ behabitUsers[i].BMR }} calories/day</td>
                                         <td>{{ behabitUsers[i].smoker }}</td>
                                         <td>
-                                            <a href="/analyzeData" class="button">View Report</a>
+                                            <a href="/v1/patient/userHabits/{{ behabitUsers[i].behabitID }}" class="btn" style="background: #0c5460; color: #fff; font-weight: normal; padding: auto">Daily Habits</a>
                                         </td>
                                     </tr>
                                 {% endfor %}

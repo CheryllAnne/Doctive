@@ -1,5 +1,6 @@
 <?php
 
+use utility\Session;
 use Psr\Container\ContainerInterface;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
@@ -40,19 +41,56 @@ class Patient extends AppController
         $address = $register['address'];
         $email = $register['email'];
         $medHistory = $register['medHistory'];
-        //$password = $register['password'];
-        $newPatient = "Insert into patient (name, icNo, age, sex, status, height, weight, medCard, medCardNo, address, email, medHistory) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-        $result = $this->database->prepare( $newPatient )->execute( [ $name, $icNo, $age, $sex, $status, $height, $weight, $medCard, $medCardNo, $address, $email, $medHistory ] );
+        $contactNo = $register['contactNo'];
+        $eContactPerson = $register['eContactPerson'];
+        $eContactRelation = $register['eContactRelation'];
+        $eContactNo = $register['eContactNo'];
+        $alert = $register['alert'];
+
+        $newPatient = "Insert into patient (name, icNo, age, sex, status, height, weight, medCard, medCardNo, address, email, medHistory, contactNo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $result = $this->database->prepare( $newPatient)->execute( [ $name, $icNo, $age, $sex, $status, $height, $weight, $medCard, $medCardNo, $address, $email, $medHistory, $contactNo ] );
 
         if ( $result == true ) {
-            $this->session->flash('add', ' Patient Successfully Registered!');
-//            echo $this->twig->render('patients.twig', array('firstName' => $this->session->get('first_name')));
+            $eContact = $this->database->prepare("Insert into emergency (eContactPerson, eContactRelation, eContactNo, patientName, patientIcNo, contactNo, address, alert) VALUES (?,?,?,?,?,?,?,?)");
+            $result2 = $eContact->execute([ $eContactPerson, $eContactRelation, $eContactNo, $name, $icNo, $contactNo, $address, $alert]);
+
+            if ($result2 == true) {
+                $this->session->flash('add', ' Patient Successfully Registered!');
+            }else{
+                $this->session->flash('error', 'ERROR in emergency!');
+            }
+
         } else {
             $this->session->flash('error', 'ERROR!');
-//            return $response->withRedirect( '/login' );
         }
-        echo $this->twig->render('registerPatient.twig', array('session' => $_SESSION, 'add' => $this->session->get('add'),
+        echo $this->twig->render('registerPatient.twig', array('session' => $_SESSION, 'result2' => $result2, 'add' => $this->session->get('add'),
             'error' => $this->session->get('error')));
+    }
+
+    public function updatePatient( Request $request, Response $response, $args ){
+
+        $patientID = $args['patientId'];
+        $update = $request->getParsedBody();
+        $status = $update['status'];
+        $medCard = $update['medCard'];
+        $medCardNo = $update['medCardNo'];
+        $address = $update['address'];
+        $email = $update['email'];
+        $medHistory = $update['medHistory'];
+
+        $updatePatient = "UPDATE `patient` Set status = ?, medCard = ?, medCardNo = ?, address = ?, email = ?, medHistory = ? WHERE patientId = ?";
+        $result = $this->database->prepare( $updatePatient ) or die($this->database->error);
+        $result->execute([$status, $medCard, $medCardNo, $address, $email, $medHistory, $patientID]);
+
+        if ( $result == true ) {
+            $this->session->flash('add', ' Patient Records Updated');
+        } else {
+            $this->session->flash('error', 'ERROR!');
+        }
+
+        echo $this->twig->render('patientUpdate.twig', array('session' => $_SESSION, 'add' => $this->session->get('add'),
+            'error' => $this->session->get('error'), 'result' => $result));
+
     }
 
     public function viewPatients( Request $request, Response $response ) {
@@ -67,11 +105,34 @@ class Patient extends AppController
                 $count = $count + 1;
             }
                 $this->session->set('patients', $patients);
-                echo $this->twig->render('patients.twig', array('i' => $count, 'patients' => $this->session->get('patients'), 'roomName' => $this->session->get('roomName'),
-                    'roomType' => $this->session->get('roomType'), 'description' => $this->session->get('description')));
+                echo $this->twig->render('adminPatients.twig', array('i' => $count, 'patients' => $this->session->get('patients')));
         } else {
             echo $this->twig->render('adminHome.twig');
         }
+
+    }
+
+    public function searchPatient( Request $request, Response $response) {
+
+        $count = 0;
+        $patient = $request->getQueryParams();
+        $CardNo = $patient['icNo'];
+        $searchPatient = "Select * from `patient` where `icNo` LIKE :icNo";
+        $result = $this->database->prepare( $searchPatient );
+        $result->bindValue(':icNo', '%'.$CardNo.'%');
+        $result->execute();
+
+        if ( $result == true ) {
+            while ( $row = $result->fetch( PDO::FETCH_ASSOC ) ) {
+                $patients[] = $row;
+                $count = $count + 1;
+            }
+            $this->session->set('patients', $patients);;
+            echo $this->twig->render('adminPatients.twig', array('i' => $count, 'search'=>$this->session->get('search'), 'patients' => $this->session->get('patients')));
+        } else {
+            echo $this->twig->render('adminHome.twig');
+        }
+//
     }
 
     public function behabitUpdate( Request $request, Response $response ) {
@@ -89,45 +150,14 @@ class Patient extends AppController
 
         if ( $result == true ) {
             $this->session->flash('add', ' Patient habits progress Successfully Registered!');
-//            echo $this->twig->render('patients.twig', array('firstName' => $this->session->get('first_name')));
         } else {
             $this->session->flash('error', 'ERROR!');
-//            return $response->withRedirect( '/login' );
         }
         echo $this->twig->render('dataUpdate.twig', array('session' => $_SESSION, 'add' => $this->session->get('add'),
             'error' => $this->session->get('error')));
-//var_dump($update);
     }
 
-    //not functioning
-    public function fileUpload( Request $request, Response $response, $args){
-
-        $files = $request->getUploadedFiles();
-        if (empty($files['file_input'])) {
-            throw new Exception('No file has been send');
-        }
-        $myFile = $files['file_input'];
-        if ($myFile->getError() === UPLOAD_ERR_OK) {
-            $uploadFileName = $myFile->getClientFilename();
-            $myFile->moveTo('../public/res/img' . $uploadFileName);
-        }
-
-        $newFile = "Insert into images (decisionTree ) VALUES (?)";
-        $result = $this->database->prepare( $newFile )->execute( [ $myFile] );
-
-        if ( $result == true ) {
-            $this->session->flash('add', ' Image Successfully Added!');
-//            echo $this->twig->render('patients.twig', array('firstName' => $this->session->get('first_name')));
-        } else {
-            $this->session->flash('error', 'ERROR!');
-//            return $response->withRedirect( '/login' );
-        }
-        echo $this->twig->render('dataUpdate.twig', array('session' => $_SESSION, 'add' => $this->session->get('add'),
-            'error' => $this->session->get('error')));
-
-    }
-
-    public function scheduleApp( Request $request, Response $response ){
+    public function scheduleApp( Request $request, Response $response){
 
         $appointment = $request->getParsedBody();
         $name = $appointment['name'];
@@ -147,16 +177,14 @@ class Patient extends AppController
             $this->session->flash('error', 'ERROR!');
 
         }
-        echo $this->twig->render('scheduleApp.twig', array('session' => $_SESSION, 'add' => $this->session->get('add'),
+        echo $this->twig->render('scheduleApp.twig', array('session' => $_SESSION, 'result' => $result, 'add' => $this->session->get('add'),
             'error' => $this->session->get('error')));
     }
 
-    //do some edits
-    public function viewAppointment( Request $request, Response $response )
-    {
+    public function viewAppointment( Request $request, Response $response ){
 
         $count = 0;
-        $viewAppt = "Select * from `appointment` order by date ";
+        $viewAppt = "Select * from `appointment` order by date, time ";
         $result = $this->database->query($viewAppt);
 
         if ($result == true) {
@@ -165,15 +193,14 @@ class Patient extends AppController
                 $count = $count + 1;
             }
             $this->session->set('appointments', $appointments);
-            echo $this->twig->render('appointment.twig', array('i' => $count, 'appointments' => $this->session->get('appointments'), 'roomName' => $this->session->get('roomName'),
-                'roomType' => $this->session->get('roomType'), 'description' => $this->session->get('description')));
+            echo $this->twig->render('adminAppointment.twig', array('i' => $count, 'appointments' => $this->session->get('appointments')));
         } else {
             echo $this->twig->render('adminHome.twig');
         }
     }
 
-    public function behabitUser( Request $request, Response $response )
-    {
+    public function behabitUser( Request $request, Response $response ){
+
         $count = 0;
         $behabitUser = "Select * from `behabitUsers` ";
         $result = $this->database->query($behabitUser);
@@ -184,18 +211,19 @@ class Patient extends AppController
                 $count = $count + 1;
             }
             $this->session->set('behabitUsers', $behabitUsers);
-            echo $this->twig->render('behabitUsers.twig', array('i' => $count, 'behabitUsers' => $this->session->get('behabitUsers'), 'roomName' => $this->session->get('roomName'),
-                'roomType' => $this->session->get('roomType'), 'description' => $this->session->get('description')));
+            echo $this->twig->render('behabitUsers.twig', array('i' => $count, 'behabitUsers' => $this->session->get('behabitUsers')));
         } else {
             echo $this->twig->render('adminHome.twig');
         }
     }
 
-    public function viewHabits( Request $request, Response $response )
-    {
+    public function viewHabits( Request $request, Response $response, $args ){
+
         $count = 0;
-        $userHabits = "Select * from `behabit` order by date ";
-        $result = $this->database->query($userHabits);
+        $behabitID = $args['behabitID'];
+        $userHabits = "Select * from `behabit` WHERE behabitID = ? order by date";
+        $result = $this->database->prepare($userHabits);
+        $result->execute([$behabitID]);
 
         if ($result == true) {
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -203,11 +231,11 @@ class Patient extends AppController
                 $count = $count + 1;
             }
             $this->session->set('habits', $habits);
-            echo $this->twig->render('viewHabits.twig', array('i' => $count, 'habits' => $this->session->get('habits'), 'roomName' => $this->session->get('roomName'),
-                'roomType' => $this->session->get('roomType'), 'description' => $this->session->get('description')));
+            echo $this->twig->render('viewHabits.twig', array('i' => $count, 'habits' => $this->session->get('habits')));
         } else {
-            echo $this->twig->render('adminHome.twig');
+            echo $this->twig->render('doctorHome.twig');
         }
+
     }
 
     public function medHistory( Request $request, Response $response ){
@@ -215,32 +243,31 @@ class Patient extends AppController
         $history = $request->getParsedBody();
         $name = $history['name'];
         $icNo = $history['icNo'];
-        $lastVisit = $history['last_visit'];
         $currentVisit = $history['current_visit'];
         $status = $history['status'];
         $medCardNo = $history['medCardNo'];
         $comment = $history['comment'];
         $prescription = $history['prescription'];
 
-        $medHistory = "INSERT INTO `history` (name, icNo, last_visit, current_visit, status, medCardNo, comment, prescription ) VALUES (?,?,?,?,?,?,?,?)";
-        $result = $this->database->prepare( $medHistory )->execute([ $name, $icNo, $lastVisit, $currentVisit, $status, $medCardNo, $comment, $prescription ]);
+        $medHistory = "INSERT INTO `history` (name, icNo, current_visit, status, medCardNo, comment, prescription ) VALUES (?,?,?,?,?,?,?)";
+        $result = $this->database->prepare( $medHistory )->execute([ $name, $icNo, $currentVisit, $status, $medCardNo, $comment, $prescription ]);
 
         if ( $result == true ) {
-            $this->session->flash('add', ' Medical History Updated');
-
+            $this->session->flash('add', ' Medical Report Updated ');
         } else {
             $this->session->flash('error', 'ERROR!');
-
         }
-        echo $this->twig->render('medicalHistory.twig', array('session' => $_SESSION, 'add' => $this->session->get('add'),
+        echo $this->twig->render('createReport.twig', array('session' => $_SESSION, 'result' => $result, 'add' => $this->session->get('add'),
             'error' => $this->session->get('error')));
     }
 
-    public function viewMedHistory( Request $request, Response $response )
-    {
+    public function viewMedHistory( Request $request, Response $response, $args ){
+
         $count = 0;
-        $viewHistory = "Select * from `history` order by patientID ";
-        $result = $this->database->query($viewHistory);
+        $patientIC = $args['icNo'];
+        $viewHistory = "Select * from `history` WHERE icNo = ? order by current_visit ";
+        $result = $this->database->prepare( $viewHistory );
+        $result->execute([$patientIC]);
 
         if ($result == true) {
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -248,11 +275,70 @@ class Patient extends AppController
                 $count = $count + 1;
             }
             $this->session->set('medHistory', $medHistory);
-            echo $this->twig->render('viewMedHistory.twig', array('i' => $count, 'medHistory' => $this->session->get('medHistory'), 'roomName' => $this->session->get('roomName'),
-                'roomType' => $this->session->get('roomType'), 'description' => $this->session->get('description')));
+            echo $this->twig->render('medicalHistory.twig', array('i' => $count, 'medHistory' => $this->session->get('medHistory')));
         } else {
-            echo $this->twig->render('adminHome.twig');
+            echo $this->twig->render('doctorHome.twig');
         }
+    }
+
+    public function viewEmergency( Request $request, Response $response ){
+
+        $count = 0;
+        $viewEmgcy = "Select * from `emergency` WHERE alert = 1";
+        $result = $this->database->query($viewEmgcy);
+        $numrows = (new PDOStatement)->rowCount($result);
+
+        if ($result == true) {
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $emergency[] = $row;
+                $count = $count + 1;
+            }
+            $this->session->set('emergency', $emergency);
+            echo $this->twig->render('emergencyHome.twig', array('i' => $count, 'emergency' => $this->session->get('emergency'),
+            'numrows'=> $numrows));
+
+        } else {
+            return $response->withRedirect('/');
+        }
+    }
+
+    public function deleteEmergency( Request $request, Response $response, $args ){
+
+        $eID = $args['eID'];
+        $deleteEmgcy = "Delete from `emergency` where eID = ?";
+        $result = $this->database->prepare( $deleteEmgcy ) or die( $this->database->error );
+        $result->execute([$eID]);
+
+        if ( $result == true ) {
+            return $response->withRedirect('/v1/patient/viewEmergency');
+        }
+        else {
+            echo $this->twig->render('index.twig');
+        }
+    }
+
+    public function updateEmergency( Request $request, Response $response, $args ){
+
+        $patientIcNo = $args['patientIcNo'];
+        $update = $request->getParsedBody();
+        $eContactPerson = $update['eContactPerson'];
+        $eContactRelation = $update['eContactRelation'];
+        $eContactNo = $update['eContactNo'];
+        $alert = $update['alert'];
+
+        $updateEmergency = "UPDATE `emergency` Set eContactPerson = ?, eContactRelation = ?, eContactNo = ?, alert = ? WHERE patientIcNo = ?";
+        $result = $this->database->prepare( $updateEmergency ) or die($this->database->error);
+        $result->execute([$eContactPerson, $eContactRelation, $eContactNo, $alert, $patientIcNo]);
+
+        if ( $result == true ) {
+            $this->session->flash('add', ' Emergency Contact Updated');
+        } else {
+            $this->session->flash('error', 'ERROR!');
+        }
+
+        echo $this->twig->render('emergencyUpdate.twig', array('session' => $_SESSION, 'add' => $this->session->get('add'),
+            'error' => $this->session->get('error'), 'result' => $result));
+
     }
 
 

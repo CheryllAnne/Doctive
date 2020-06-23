@@ -52,6 +52,13 @@ class Home extends AppController
             'code' => $this->session->get('code')));
     }
 
+    public function analyst(){
+        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__,2) . '/public/views');
+        $twig = new Twig\Environment($loader);
+        echo $twig->render('analystHome.twig', array('doctor' => $this->session->get('doctor'), 'adname' => $this->session->get('adname') ,
+            'code' => $this->session->get('code')));
+    }
+
     public function doctorRegister(){
         $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__,2) . '/public/views');
         $twig = new Twig\Environment($loader);
@@ -95,10 +102,28 @@ class Home extends AppController
         echo $twig->render('analyzeUsers.twig');
     }
 
+    public function tableau(){
+        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__,2) . '/public/views');
+        $twig = new Twig\Environment($loader);
+        echo $twig->render('tableau.twig');
+    }
+
     public function doctorLogin(){
         $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__,2) . '/public/views');
         $twig = new Twig\Environment($loader);
         echo $twig->render('doctorLogin.twig');
+    }
+
+    public function prescription(){
+        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__,2) . '/public/views');
+        $twig = new Twig\Environment($loader);
+        echo $twig->render('prescription.twig');
+    }
+
+    public function analystLogin(){
+        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__,2) . '/public/views');
+        $twig = new Twig\Environment($loader);
+        echo $twig->render('analystLogin.twig');
     }
 
 

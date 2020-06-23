@@ -1,0 +1,157 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Doctive</title>
+    <meta name="description" content="Doctive">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+    <link rel="stylesheet" href="/res/css/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/res/css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/res/css/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="/res/css/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="/res/css/selectFX/css/cs-skin-elastic.css">
+
+    <link rel="stylesheet" href="/res/css/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+
+{#For Doctor#}
+<aside id="left-panel" class="left-panel">
+    <nav class="navbar navbar-expand-sm navbar-default">
+
+        <div class="navbar-header">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="/"><img src="images/logo.png" alt="Doctive"></a>
+{#            <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>#}
+        </div>
+
+        <div id="main-menu" class="main-menu collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/doctorHome"> <i class="menu-icon fa fa-home"></i>Dashboard </a>
+                </li>
+                <h3 class="menu-title">Hospital Patients</h3><!-- /.menu-title -->
+
+                <li>
+                    <a href="/v1/doctor/viewAppointment"> <i class="menu-icon ti-bell"></i> View My Appointments </a>
+                </li>
+                <li>
+                    <a href="/v1/doctor/view"> <i class="menu-icon ti-user"></i> View My Patients </a>
+                </li>
+
+                <!--------------------------------------- Behabit Segment --------------------------------------------->
+
+                <h3 class="menu-title">Behabit</h3><!-- /.menu-title -->
+
+                <li>
+                    <a href="/v1/doctor/behabitUsers"> <i class="menu-icon ti-bar-chart"></i>List of Users </a>
+                </li>
+
+                <!--------------------------------------- Behabit Segment --------------------------------------------->
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</aside><!-- /#left-panel -->
+
+<div class="col-lg-6">
+    <div class="card">
+        <br/>{{ session.add }}{{ session.error }}<br/>
+        <div class="card-header">
+            <strong>Update Patient Record</strong>
+        </div>
+        <div class="card-body card-block">
+            <form action="/v1/patient/history" method="post" enctype="multipart/form-data" class="form-horizontal">
+                {#                    <div class="row form-group">#}
+                {#                        <div class="col col-md-3"><label class=" form-control-label">Static</label></div>#}
+                {#                        <div class="col-12 col-md-9">#}
+                {#                            <p class="form-control-static">Username</p>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Full Name</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="name" placeholder="Name" class="form-control"><small class="form-text text-muted">Patient's full name as per NRIC</small></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Identification Card No.</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="icNo" placeholder="IC No." class="form-control"><small class="form-text text-muted">IC number without '-'</small></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="date-input" class=" form-control-label">Last Visit</label></div>
+                    <div class="col-12 col-md-9"><input type="date" id="text-input" name="last_visit" placeholder="" class="form-control"><small class="form-text text-muted"></small></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="date-input" class=" form-control-label">Current Visit</label></div>
+                    <div class="col-12 col-md-9"><input type="date" id="text-input" name="current_visit" placeholder="" class="form-control"><small class="form-text text-muted"></small></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="select" class=" form-control-label">Patient Status</label></div>
+                    <div class="col-12 col-md-9">
+                        <select name="status" id="select" class="form-control">
+                            <option value="0">Please select</option>
+                            <option value="Outpatient">Outpatient</option>
+                            <option value="Inpatient">Inpatient</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="email-input" class=" form-control-label">Medical Card No.</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="medCardNo" placeholder="" class="form-control"></div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Doctor's Comments</label></div>
+                    <div class="col-12 col-md-9"><textarea name="comment" id="textarea-input" rows="5" placeholder=" " class="form-control"></textarea></div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Prescriptions</label></div>
+                    <div class="col-12 col-md-9"><textarea name="prescription" id="textarea-input" rows="5" placeholder=" " class="form-control"></textarea></div>
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> Submit
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    {#        <div class="card">#}
+    {#            <div class="card-header">#}
+    {#                <strong>Inline</strong> Form#}
+    {#            </div>#}
+    {#            <div class="card-body card-block">#}
+    {#                <form action="" method="post" class="form-inline">#}
+    {#                    <div class="form-group"><label for="exampleInputName2" class="pr-1  form-control-label">Name</label><input type="text" id="exampleInputName2" placeholder="Jane Doe" required="" class="form-control"></div>#}
+    {#                    <div class="form-group"><label for="exampleInputEmail2" class="px-1  form-control-label">Email</label><input type="email" id="exampleInputEmail2" placeholder="jane.doe@example.com" required="" class="form-control"></div>#}
+    {#                </form>#}
+    {#            </div>#}
+    {#            <div class="card-footer">#}
+    {#                <button type="submit" class="btn btn-primary btn-sm">#}
+    {#                    <i class="fa fa-dot-circle-o"></i> Submit#}
+    {#                </button>#}
+    {#                <button type="reset" class="btn btn-danger btn-sm">#}
+    {#                    <i class="fa fa-ban"></i> Reset#}
+    {#                </button>#}
+    {#            </div>#}
+    {#        </div>#}
+</div>
+
+</body>
+</html>

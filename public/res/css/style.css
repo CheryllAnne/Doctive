@@ -1001,7 +1001,7 @@ textarea {
   width: 100%; }
 
 aside.left-panel {
-  background: #272c33;
+  background: #0c5460;
   display: table-cell;
   height: 100vh;
   min-height: 100%;
@@ -1012,7 +1012,8 @@ aside.left-panel {
   transition: width 0.3s ease; }
 
 .navbar {
-  background: #272c33;
+  /*#272c33*/
+  background: #0c5460;
   border-radius: 0;
   border: none;
   display: block;
@@ -1023,15 +1024,18 @@ aside.left-panel {
     text-align: center;
     width: 100%; }
   .navbar .navbar-brand {
-    border-bottom: 1px solid #4e4e52;
+    border-bottom: 1px solid #00ffcc;
     color: #f1f2f7 !important;
-    font-family: 'Open Sans';
+    font-family:'Arial Black';
+    /*font-size: 30px;*/
+    /*font-weight: 900;*/
     font-size: 22px;
     float: none;
     line-height: 50px;
     margin: 0;
     text-align: left;
-    text-transform: capitalize;
+    text-transform: uppercase;
+    /*text-transform: capitalize;*/
     display: block;
     min-height: 69px;
     padding: 0;
@@ -1052,8 +1056,10 @@ aside.left-panel {
     .navbar .navbar-brand.hidden {
       display: none; }
   .navbar .menu-title {
-    border-bottom: 1px solid #4e4e52;
-    color: #9496a1;
+    /*#4e4e52*/
+    border-bottom: 1px solid #00ffcc;
+    /*#9496a1  #dfeffc*/
+    color: #00ffcc;
     clear: both;
     display: block;
     font-family: 'Open Sans';
@@ -1076,7 +1082,8 @@ aside.left-panel {
         display: none; }
       .navbar .navbar-nav li > a {
         background: none !important;
-        color: #c8c9ce !important;
+        /*#c8c9ce*/
+        color: #dfeffc !important;
         display: inline-block;
         font-family: 'Open Sans';
         font-size: 14px;
@@ -1109,6 +1116,7 @@ aside.left-panel {
           line-height: 30px; }
           .navbar .navbar-nav li.menu-item-has-children a:before {
             content: "\f105";
+            /*#c8c9ce*/
             color: #c8c9ce;
             font-family: 'Fontawesome';
             font-size: 16px;
@@ -1121,7 +1129,7 @@ aside.left-panel {
           .navbar .navbar-nav li.menu-item-has-children a:hover:before {
             color: #fff; }
         .navbar .navbar-nav li.menu-item-has-children .sub-menu {
-          background: #272c33;
+          background: #0c5460;
           border: none;
           box-shadow: none;
           overflow-y: hidden;
@@ -1267,6 +1275,7 @@ body.open .navbar .navbar-brand.hidden {
   -webkit-transition: all 0.35s ease;
   transition: all 0.35s ease; }
   .right-panel .breadcrumbs {
+    /*#fff*/
     background-color: #fff;
     display: inline-block;
     margin-top: 0;
@@ -1337,7 +1346,8 @@ header.fixed-top {
   line-height: 38px; }
 
 header .form-inline {
-  background: #263238;
+  /*#263238*/
+  background: #0f6674;
   display: none;
   height: 70px;
   margin: 0;
@@ -1352,7 +1362,7 @@ header .form-inline {
     margin: 0 auto;
     position: relative; }
     header .form-inline .search-form input[type="text"] {
-      background: #263238;
+      background: #0f6674;
       border: none;
       border-radius: 0;
       box-shadow: none;
@@ -1550,12 +1560,17 @@ header .form-inline {
 .content {
   float: left;
   padding: 0 20px;
-  width: 100%; }
+  width: 100%;
+}
 
 .card {
   margin-bottom:24px;
   margin-bottom: 1.5rem;
-  border-radius: 0; }
+  border-radius: 0;
+  color: #0c5460;
+  /*border-color: #1ecd97;*/
+  /*background: #fff;*/
+}
   .card h4 {
     font-size:17.6px;
     font-size: 1.1rem; }
@@ -1580,7 +1595,8 @@ header .form-inline {
     padding:10.4px 20px;
     padding: 0.65rem 1.25rem;
     background-color: #f0f3f5;
-    border-top: 1px solid #c2cfd6; }
+    /*#c2cfd6*/
+    border-top: 1px solid #0c5460; }
     .card .card-footer ul li {
       display: table-cell;
       padding:0 16px;
@@ -2325,6 +2341,28 @@ header .form-inline {
       background: #272c33;
       border-color: #272c33;
       color: #fff; }
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before {
+  bottom: .5em;
+}
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 430px;
+  overflow: auto;
+}
+.table-wrapper-scroll-y {
+  display: block;
+}
 
 @media (max-width: 1368px) {
   .content {

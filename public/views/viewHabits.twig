@@ -40,62 +40,31 @@
                 <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand" href="/"><img src="images/logo.png" alt="Doctive"></a>
-            <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
         </div>
 
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="/adminHome"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="/doctorHome"> <i class="menu-icon fa fa-home"></i>Dashboard </a>
                 </li>
-                <h3 class="menu-title">Administration</h3><!-- /.menu-title -->
-
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Register New Patient</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-th"></i><a href="/registerPatient">Registration Form</a></li>
-                        {#                        <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>#}
-                    </ul>
-                </li>
-                <li>
-                    <a href="/scheduleApp"> <i class="menu-icon ti-email"></i> Schedule Appointments </a>
-                </li>
-                <li>
-                    <a href="/v1/patient/viewAppointment"> <i class="menu-icon ti-email"></i> Appointments </a>
-                </li>
-                <li>
-                    <a href="/v1/patient/view"> <i class="menu-icon ti-email"></i> All Patients </a>
-                </li>
-
-
-                <h3 class="menu-title">Behabit - Doctive</h3><!-- /.menu-title -->
-
+                <h3 class="menu-title">Hospital Patients</h3><!-- /.menu-title -->
 
                 <li>
-                    <a href="/v1/patient/behabitUsers"> <i class="menu-icon ti-email"></i>List of Users </a>
+                    <a href="/v1/doctor/viewAppointment"> <i class="menu-icon ti-bell"></i> View My Appointments </a>
                 </li>
                 <li>
-                    <a href="/dataUpdate"> <i class="menu-icon ti-email"></i>Data Update </a>
+                    <a href="/v1/doctor/view"> <i class="menu-icon ti-user"></i> View My Patients </a>
                 </li>
 
-                <h3 class="menu-title">Doctors</h3><!-- /.menu-title -->
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Doctors List</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Specialists</a></li>
-                        <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">General Physician</a></li>
-                        <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">On Duty</a></li>
-                    </ul>
-                </li>
+                <!--------------------------------------- Behabit Segment --------------------------------------------->
 
-                <h3 class="menu-title">Others</h3><!-- /.menu-title -->
+                <h3 class="menu-title">Behabit</h3><!-- /.menu-title -->
 
                 <li>
-                    <a href="/adminRegister"> <i class="menu-icon ti-email"></i>Register New Admin </a>
+                    <a href="/v1/doctor/behabitUsers"> <i class="menu-icon ti-bar-chart"></i>List of Users </a>
                 </li>
-                <li>
-                    <a href="/doctorRegister"> <i class="menu-icon ti-email"></i>Register New Doctor </a>
-                </li>
+
+                <!--------------------------------------- Behabit Segment --------------------------------------------->
 
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -193,7 +162,7 @@
             <div class="col-sm-5">
                 <div class="user-area dropdown float-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                        <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="Doctor">
                     </a>
 
                     <div class="user-menu dropdown-menu">
@@ -237,7 +206,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Dashboard</h1>
+{#                    <h1>Dashboard</h1>#}
                 </div>
             </div>
         </div>
@@ -261,13 +230,16 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Patients</strong>
+                            <strong class="card-title">Daily Activity & Habits </strong>
                         </div>
                         <div class="card-body">
-                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+{#                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">#}
+                            <table id="habits" class="table table-striped table-bordered mb-0" >
                                 <thead>
                                 {% for i in range(0,0) %}
-                                <th>Name : {{ habits[i].name }}</th>
+                                <th>Name : {{ habits[i].name }}
+                                </th>
                                 {% endfor %}
                                 <tr>
 
@@ -278,7 +250,7 @@
                                     <th>Exercise</th>
                                     <th>Mood</th>
                                     <th>Behabit Points Category</th>
-                                    <th>Behabit Points</th>
+{#                                    <th>Behabit Points</th>#}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -292,13 +264,25 @@
                                         <td>{{ habits[i].exercise }}</td>
                                         <td>{{ habits[i].mood }}</td>
                                         <td>{{ habits[i].BpointsCategory }}</td>
-                                        <td>{{ habits[i].Bpoints }}</td>
+{#                                        <td>{{ habits[i].Bpoints }}</td>#}
 
                                     </tr>
                                 {% endfor %}
 
                                 </tbody>
                             </table>
+                            </div>
+                            <br/>
+{#                            <button type="button" class="btn btn-primary">Primary</button> OR class="btn btn-primary btn-lg active" #}
+{#                            <a href="/analyzeData" class="btn btn-light" style="background: #0c5460; color: #fff; font-weight: normal; padding: auto" role="button" aria-pressed="true">Decision Tree </a>#}
+                            <a href="/v1/doctor/wekaAnalyze" class="btn btn-light" style="background: #0c5460; color: #fff; font-weight: normal; padding: auto" role="button" aria-pressed="true">Decision Tree </a>
+
+                            <a href="/tableau" class="btn btn-light" style="background: #0c5460; color: #fff; font-weight: normal; padding: auto" role="button" aria-pressed="true">Habit Change</a>
+
+                            <a href="https://public.tableau.com/views/BehabitPointsMood-byweek/Sheet2?:display_count=y&:origin=viz_share_link"
+                               class="btn btn-light" style="background: #0c5460; color: #fff; font-weight: normal; padding: auto" role="button" aria-pressed="true">Habit Change Analysis</a>
+
+                            <a href="/prescription" class="btn btn-light" style="background: #0c5460; color: #00ffcc; font-weight: normal; padding: auto" role="button" aria-pressed="true">Send Prescription</a>
                         </div>
                     </div>
                 </div>
@@ -311,6 +295,14 @@
 </div><!-- /#right-panel -->
 
 <!-- Right Panel -->
+{#<script>#}
+
+{#    $(document).ready(function() {#}
+{#        $('#habits').DataTable( {#}
+{#            "pagingType": "full_numbers"#}
+{#        } );#}
+{#    } );#}
+{#</script>#}
 
 <script src="/res/js/jquery/dist/jquery.min.js"></script>
 <script src="/res/js/popper.js/dist/umd/popper.min.js"></script>

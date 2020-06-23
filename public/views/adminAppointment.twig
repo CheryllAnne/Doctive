@@ -23,6 +23,13 @@
     <link rel="stylesheet" href="/res/css/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="/res/css/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+
 
     <link rel="stylesheet" href="/res/css/style.css">
 
@@ -46,25 +53,27 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="/adminHome"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="/adminHome"> <i class="menu-icon fa fa-home"></i>Dashboard </a>
                 </li>
                 <h3 class="menu-title">Administration</h3><!-- /.menu-title -->
 
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Register New Patient</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-th"></i><a href="/registerPatient">Registration Form</a></li>
+                        <li><i class="menu-icon fa fa-address-card"></i><a href="/registerPatient">Registration Form</a></li>
                         {#                        <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>#}
                     </ul>
                 </li>
+
+                {#                Include appointments with patient list#}
+                {#                <li>#}
+                {#                    <a href="/scheduleApp"> <i class="menu-icon ti-email"></i> Schedule Appointments </a>#}
+                {#                </li>#}
                 <li>
-                    <a href="/scheduleApp"> <i class="menu-icon ti-email"></i> Schedule Appointments </a>
+                    <a href="/v1/patient/viewAppointment"> <i class="menu-icon ti-bell"></i> Appointments </a>
                 </li>
                 <li>
-                    <a href="/v1/patient/viewAppointment"> <i class="menu-icon ti-email"></i> Appointments </a>
-                </li>
-                <li>
-                    <a href="/v1/patient/view"> <i class="menu-icon ti-email"></i> All Patients </a>
+                    <a href="/v1/patient/view"> <i class="menu-icon ti-user"></i> All Patients </a>
                 </li>
 
 
@@ -72,15 +81,15 @@
 
 
                 <li>
-                    <a href="/v1/patient/behabitUsers"> <i class="menu-icon ti-email"></i>List of Users </a>
+                    <a href="/v1/patient/behabitUsers"> <i class="menu-icon ti-user"></i>List of Users </a>
                 </li>
                 <li>
-                    <a href="/dataUpdate"> <i class="menu-icon ti-email"></i>Data Update </a>
+                    <a href="/dataUpdate"> <i class="menu-icon ti-world"></i>Data Update </a>
                 </li>
 
                 <h3 class="menu-title">Doctors</h3><!-- /.menu-title -->
                 <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Doctors List</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list"></i>Doctors List</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Specialists</a></li>
                         <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">General Physician</a></li>
@@ -91,10 +100,10 @@
                 <h3 class="menu-title">Others</h3><!-- /.menu-title -->
 
                 <li>
-                    <a href="/adminRegister"> <i class="menu-icon ti-email"></i>Register New Admin </a>
+                    <a href="/adminRegister"> <i class="menu-icon fa fa-id-card-o"></i>Register New Admin </a>
                 </li>
                 <li>
-                    <a href="/doctorRegister"> <i class="menu-icon ti-email"></i>Register New Doctor </a>
+                    <a href="/doctorRegister"> <i class="menu-icon fa fa-id-card"></i>Register New Doctor </a>
                 </li>
 
             </ul>
@@ -193,7 +202,7 @@
             <div class="col-sm-5">
                 <div class="user-area dropdown float-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                        <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="Admin">
                     </a>
 
                     <div class="user-menu dropdown-menu">
@@ -253,6 +262,30 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            var calendar = $('#calendar').fullCalendar({
+                    editable:true,
+                    header:{
+                        left:'prev,next today',
+                        center:'title',
+                        right:'month,agendaWeek,agendaDay'
+                    },
+                    url: '{{("/v1/patient/viewAppointment")}}',
+                    type: "GET",
+                    selectable:true,
+                    selectHelper:true,})
+        });
+    </script>
+
+    <br />
+    <h6 align="center"><a href="#"></a></h6>
+    <br />
+    <div class="container" >
+        <div id="calendar" ></div>
+    </div>
+
 
     <div class="content mt-3">
         <div class="animated fadeIn">

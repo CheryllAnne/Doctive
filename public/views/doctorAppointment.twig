@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/res/css/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="/res/css/selectFX/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="/res/js/jqvmap/dist/jqvmap.min.css">
+
     <link rel="stylesheet" href="/res/css/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="/res/css/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
 
@@ -45,32 +46,23 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="/doctorHome"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="/doctorHome"> <i class="menu-icon fa fa-home"></i>Dashboard </a>
                 </li>
                 <h3 class="menu-title">Hospital Patients</h3><!-- /.menu-title -->
 
                 <li>
-                    <a href="/v1/doctor/viewAppointment"> <i class="menu-icon ti-email"></i> View My Appointments </a>
+                    <a href="/v1/doctor/viewAppointment"> <i class="menu-icon ti-bell"></i> View My Appointments </a>
                 </li>
                 <li>
-                    <a href="/v1/doctor/view"> <i class="menu-icon ti-email"></i> View My Patients </a>
+                    <a href="/v1/doctor/view"> <i class="menu-icon ti-user"></i> View My Patients </a>
                 </li>
-                <li>
-                    <a href="/v1/patient/view"> <i class="menu-icon ti-email"></i> Search Patient Record </a>
-                </li>
-                {#                <li>#}
-                {#                    <a href="/v1/patient/view"> <i class="menu-icon ti-email"></i> Prescriptions </a>#}
-                {#                </li>#}
 
                 <!--------------------------------------- Behabit Segment --------------------------------------------->
 
                 <h3 class="menu-title">Behabit</h3><!-- /.menu-title -->
 
                 <li>
-                    <a href="/v1/doctor/behabitUsers"> <i class="menu-icon ti-email"></i>List of Users </a>
-                </li>
-                <li>
-                    <a href="widgets.html"> <i class="menu-icon ti-email"></i>Analyze Users </a>
+                    <a href="/v1/doctor/behabitUsers"> <i class="menu-icon ti-bar-chart"></i>List of Users </a>
                 </li>
 
                 <!--------------------------------------- Behabit Segment --------------------------------------------->
@@ -171,7 +163,7 @@
             <div class="col-sm-5">
                 <div class="user-area dropdown float-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                        <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="Doctor">
                     </a>
 
                     <div class="user-menu dropdown-menu">
@@ -215,7 +207,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Dashboard</h1>
+{#                    <h1>Dashboard</h1>#}
                 </div>
             </div>
         </div>
@@ -239,49 +231,30 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Data Table</strong>
+                            <strong class="card-title">My Appointments</strong>
                         </div>
                         <div class="card-body">
-                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Ic No.</th>
-                                    <th>Age</th>
-                                    <th>Sex</th>
-                                    <th>Status</th>
-                                    <th>Height</th>
-                                    <th>Weight</th>
-                                    <th>Medical Card</th>
-                                    <th>Medical Card No.</th>
-                                    <th>Address</th>
-                                    <th>Email</th>
-                                    <th>Medical History</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for i in range(0,i-1) %}
-                                    <tr>
-                                        <td>{{ patients[i].name }}</td>
-                                        <td>{{ patients[i].icNo }}</td>
-                                        <td>{{ patients[i].age }}</td>
-                                        <td>{{ patients[i].sex }}</td>
-                                        <td>{{ patients[i].status }}</td>
-                                        <td>{{ patients[i].height }}</td>
-                                        <td>{{ patients[i].weight }}</td>
-                                        <td>{{ patients[i].medCard }}</td>
-                                        <td>{{ patients[i].medCardNo }}</td>
-                                        <td>{{ patients[i].address }}</td>
-                                        <td>{{ patients[i].email }}</td>
-                                        <td>{{ patients[i].medHistory }}</td>
-                                        <td>
-                                            <a href="/v1/patient/viewMedHistory" class="button">View Report</a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
 
-                                </tbody>
-                            </table>
+{#                            <p> My Appointments Today</p>#}
+                            {% for i in range(0,i-1) %}
+
+                            <form name="doctor" action="/v1/doctor/deleteAppt/{{ appointments[i].appNo }}" method="post"  onClick="javascript:return confirm('Delete this appointment?');">
+
+                                <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                                    <span class="badge badge-pill badge-success">{{ appointments[i].date }}</span><br/>
+                                    Patient Name: {{ appointments[i].name }} <br/>
+                                    Time: {{ appointments[i].time }} <br/>
+                                    Remarks : {{ appointments[i].remarks }}
+                                    <br/><br/>
+{#                                    <button class="btn btn-danger ti-shift-right">Delete</button>#}
+                                    <button class="close" >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                            </form>
+                            {% endfor %}
+
                         </div>
                     </div>
                 </div>

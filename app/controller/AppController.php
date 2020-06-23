@@ -1,13 +1,22 @@
 <?php
 
 
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
+use PHPMailer\PHPMailer\PHPMailer;
+
 class AppController
 {
+
+    protected $database;
+    protected $reference;
+    protected $dbname = 'User';
     public function __construct($session)
     {
         $this->session = $session;
         $this->database = $this->connect();
         $this->twig = $this->twig();
+        $this->mail = $this->phpmail();
     }
 
     public function connect()
@@ -26,4 +35,10 @@ class AppController
         $twig = new Twig\Environment($loader);
         return $twig;
     }
+
+    public function phpmail(){
+        $mail = new PHPMailer();
+        return $mail;
+    }
+
 }

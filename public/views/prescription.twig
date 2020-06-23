@@ -1,0 +1,128 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Doctive</title>
+    <meta name="description" content="Doctive">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+    <link rel="stylesheet" href="/res/css/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/res/dist/bootstrap-clockpicker.min.css">
+    <link rel="stylesheet" href="/res/css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/res/css/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="/res/css/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="/res/css/selectFX/css/cs-skin-elastic.css">
+
+    <link rel="stylesheet" href="/res/css/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+<!-- Left Panel -->
+
+<aside id="left-panel" class="left-panel">
+    <nav class="navbar navbar-expand-sm navbar-default">
+
+        <div class="navbar-header">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="/"><img src="images/logo.png" alt="Doctive"></a>
+            <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+        </div>
+
+        <div id="main-menu" class="main-menu collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/doctorHome"> <i class="menu-icon fa fa-home"></i>Dashboard </a>
+                </li>
+                <h3 class="menu-title">Hospital Patients</h3><!-- /.menu-title -->
+
+                <li>
+                    <a href="/v1/doctor/viewAppointment"> <i class="menu-icon ti-bell"></i> View My Appointments </a>
+                </li>
+                <li>
+                    <a href="/v1/doctor/view"> <i class="menu-icon ti-user"></i> View My Patients </a>
+                </li>
+
+                <!--------------------------------------- Behabit Segment --------------------------------------------->
+
+                <h3 class="menu-title">Behabit</h3><!-- /.menu-title -->
+
+                <li>
+                    <a href="/v1/doctor/behabitUsers"> <i class="menu-icon ti-bar-chart"></i>List of Users </a>
+                </li>
+
+                <!--------------------------------------- Behabit Segment --------------------------------------------->
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</aside><!-- /#left-panel -->
+
+<!-- Left Panel -->
+<br/>
+{% if result == true  %}
+    <div class="alert  alert-success alert-dismissible fade show" role="alert">
+        <strong>Success! </strong>{{ session.add }}
+    </div>
+{% else %}
+    <div class="alert  alert-info alert-dismissible fade show" role="alert">
+        <strong>{{ session.error }}</strong>
+    </div>
+{% endif %}
+
+<div class="col-lg-6">
+
+    <div class="card">
+
+        <div class="card-header">
+            <strong>Send Prescription / Advice</strong>
+        </div>
+        <div class="card-body card-block">
+            <form action="/v1/doctor/sendPres" method="post" enctype="multipart/form-data" class="form-horizontal">
+{#                <div class="form-label-group">#}
+{#                    <label for="email-input">From <span style="color: #FF0000">*</span></label>#}
+{#                    <label>#}
+{#                        <input type="email" name="fromEmail" class="form-control"  value="cherry0797@gmail.com" readonly required autofocus>#}
+{#                    </label>#}
+{#                </div> <br/>#}
+                <div class="form-label-group">
+                    <label for="email-input">To <span style="color: #FF0000">*</span></label>
+                    <input type="email" name="toEmail" id="text-input" class="form-control" placeholder="Email address" value="cherry0797@gmail.com" required autofocus>
+                </div> <br/>
+                <div class="form-label-group">
+                    <label for="text-input">Subject <span style="color: #FF0000">*</span></label>
+                    <input type="text" name="subject" id="text-input" class="form-control" placeholder="Subject" value="Hey, you have an advice from the Doctor!" required>
+                </div><br/>
+                <div class="form-label-group">
+                    <label for="text-input">Message <span style="color: #FF0000">*</span></label>
+                    <textarea  name="message" id="text-input" class="form-control" placeholder="Advice / Prescription" required ></textarea>
+                </div> <br/>
+                <button type="submit" class="btn btn-lg btn-primary btn-block text-uppercase" style="background: #0c5460; color: #fff; font-weight: normal; padding: auto" >Send Email</button>
+            </form>
+        </div>
+    </div>
+
+{#    <br/>{{ session.add }}{{ session.error }}<br/>#}
+
+</div>
+
+{#<script>#}
+{#    $('#input_starttime').pickatime({#}
+{#// Light or Dark theme#}
+{#        darktheme: true#}
+{#    });#}
+{#</script>#}
+
+</body>
+
+

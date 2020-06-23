@@ -46,56 +46,26 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="/adminHome"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="/doctorHome"> <i class="menu-icon fa fa-home"></i>Dashboard </a>
                 </li>
-                <h3 class="menu-title">Administration</h3><!-- /.menu-title -->
-
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Register New Patient</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-th"></i><a href="/registerPatient">Registration Form</a></li>
-                        {#                        <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>#}
-                    </ul>
-                </li>
-                <li>
-                    <a href="/scheduleApp"> <i class="menu-icon ti-email"></i> Schedule Appointments </a>
-                </li>
-                <li>
-                    <a href="/v1/patient/viewAppointment"> <i class="menu-icon ti-email"></i> Appointments </a>
-                </li>
-                <li>
-                    <a href="/v1/patient/view"> <i class="menu-icon ti-email"></i> All Patients </a>
-                </li>
-
-
-                <h3 class="menu-title">Behabit - Doctive</h3><!-- /.menu-title -->
-
+                <h3 class="menu-title">Hospital Patients</h3><!-- /.menu-title -->
 
                 <li>
-                    <a href="/v1/patient/behabitUsers"> <i class="menu-icon ti-email"></i>List of Users </a>
+                    <a href="/v1/doctor/viewAppointment"> <i class="menu-icon ti-bell"></i> View My Appointments </a>
                 </li>
                 <li>
-                    <a href="/dataUpdate"> <i class="menu-icon ti-email"></i>Data Update </a>
+                    <a href="/v1/doctor/view"> <i class="menu-icon ti-user"></i> View My Patients </a>
                 </li>
 
-                <h3 class="menu-title">Doctors</h3><!-- /.menu-title -->
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Doctors List</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Specialists</a></li>
-                        <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">General Physician</a></li>
-                        <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">On Duty</a></li>
-                    </ul>
-                </li>
+                <!--------------------------------------- Behabit Segment --------------------------------------------->
 
-                <h3 class="menu-title">Others</h3><!-- /.menu-title -->
+                <h3 class="menu-title">Behabit</h3><!-- /.menu-title -->
 
                 <li>
-                    <a href="/adminRegister"> <i class="menu-icon ti-email"></i>Register New Admin </a>
+                    <a href="/v1/doctor/behabitUsers"> <i class="menu-icon ti-bar-chart"></i>List of Users </a>
                 </li>
-                <li>
-                    <a href="/doctorRegister"> <i class="menu-icon ti-email"></i>Register New Doctor </a>
-                </li>
+
+                <!--------------------------------------- Behabit Segment --------------------------------------------->
 
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -193,7 +163,7 @@
             <div class="col-sm-5">
                 <div class="user-area dropdown float-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                        <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="Doctor">
                     </a>
 
                     <div class="user-menu dropdown-menu">
@@ -237,7 +207,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Dashboard</h1>
+{#                    <h1>Dashboard</h1>#}
                 </div>
             </div>
         </div>
@@ -254,47 +224,85 @@
         </div>
     </div>
 
+    {% if result == true  %}
+        <div class="alert  alert-success alert-dismissible fade show" role="alert">
+            <strong>Success</strong>{{ session.add }}
+        </div>
+    {% else %}
+        <div class="alert  alert-info alert-dismissible fade show" role="alert">
+            <strong>{{ session.error }}</strong>
+        </div>
+    {% endif %}
+
     <div class="content mt-3">
         <div class="animated fadeIn">
             <div class="row">
-
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Patients</strong>
+                            <strong class="card-title">Medical Report</strong>
                         </div>
-                        <div class="card-body">
-                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Ic No.</th>
-                                    <th>Last Visit</th>
-                                    <th>Current Visit</th>
-                                    <th>Status</th>
-                                    <th>Medical Card No.</th>
-                                    <th>Doctor's Comments</th>
-                                    <th>Prescription</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for i in range(0,i-1) %}
-                                    <tr>
-                                        <td>{{ medHistory[i].name }}</td>
-                                        <td>{{ medHistory[i].icNo }}</td>
-                                        <td>{{ medHistory[i].last_visit }}</td>
-                                        <td>{{ medHistory[i].current_visit }}</td>
-                                        <td>{{ medHistory[i].status }}</td>
-                                        <td>{{ medHistory[i].medCardNo }}</td>
-                                        <td>{{ medHistory[i].comments }}</td>
-                                        <td>{{ medHistory[i].prescription }}</td>
+{#                        {% for i in range(0,1) %} had index i error #}
+                        {% for i in range(0,0) %}
+                        <div class="card-body card-block">
 
-                                    </tr>
-                                {% endfor %}
+                            <form action="/v1/patient/history" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                {#                    <div class="row form-group">#}
+                                {#                        <div class="col col-md-3"><label class=" form-control-label">Static</label></div>#}
+                                {#                        <div class="col-12 col-md-9">#}
+                                {#                            <p class="form-control-static">Username</p>#}
+                                {#                        </div>#}
+                                {#                    </div>#}
+                                <div class="row form-group">
+                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Full Name</label></div>
+                                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="name" placeholder="Name" value="{{ patients[i].name }}" class="form-control"><small class="form-text text-muted">Patient's full name as per NRIC</small></div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Identification Card No.</label></div>
+                                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="icNo" placeholder="IC No." value="{{ patients[i].icNo }}" class="form-control"><small class="form-text text-muted">IC number without '-'</small></div>
+                                </div>
+{#                                <div class="row form-group">#}
+{#                                    <div class="col col-md-3"><label for="date-input" class=" form-control-label">Last Visit</label></div>#}
+{#                                    <div class="col-12 col-md-9"><input type="date" id="text-input" name="last_visit" placeholder="" class="form-control"><small class="form-text text-muted"></small></div>#}
+{#                                </div>#}
+                                <div class="row form-group">
+                                    <div class="col col-md-3"><label for="date-input" class=" form-control-label">Current Visit</label></div>
+                                    <div class="col-12 col-md-9"><input type="date" id="text-input" name="current_visit" placeholder="" class="form-control"><small class="form-text text-muted"></small></div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3"><label for="select" class=" form-control-label">Patient Status</label></div>
+                                    <div class="col-12 col-md-9">
+                                        <select name="status" id="select" class="form-control">
+                                            <option value="0">Please select</option>
+                                            <option value="Outpatient">Outpatient</option>
+                                            <option value="Inpatient">Inpatient</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                                </tbody>
-                            </table>
+                                <div class="row form-group">
+                                    <div class="col col-md-3"><label for="email-input" class=" form-control-label">Medical Card No.</label></div>
+                                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="medCardNo" placeholder="" value="{{ patients[i].medCardNo }}" class="form-control"></div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Doctor's Comments</label></div>
+                                    <div class="col-12 col-md-9"><textarea name="comment" id="textarea-input" rows="5" placeholder=" "  class="form-control"></textarea></div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Prescriptions</label></div>
+                                    <div class="col-12 col-md-9"><textarea name="prescription" id="textarea-input" rows="5" placeholder=" " class="form-control"></textarea></div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary" style="background: #0c5460; color: #fff; font-weight: normal; padding: auto">
+                                        <i class="fa fa-dot-circle-o"></i>Update
+                                    </button>
+                                </div>
+                            </form>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
 

@@ -1,123 +1,281 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-
+<!doctype html>
+<html lang="en">
 <head>
-
+    <title>Doctive</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>Doctive</title>
 
-    <!-- Font Awesome Icons -->
-    <link href="/res/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,700,900&display=swap" rel="stylesheet">
 
-    <!-- Plugin CSS -->
-    <link href="/res/css/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link rel="stylesheet" href="../res/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../res/css/jquery-ui.css">
+    <link rel="stylesheet" href="../res/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../res/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../res/css/owl.theme.default.min.css">
 
-    <!-- Theme CSS - Includes Bootstrap -->
-    <link href="/res/css/creative.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../res/css/jquery.fancybox.min.css">
+
+    <link rel="stylesheet" href="../res/css/bootstrap-datepicker.css">
+
+    <link rel="stylesheet" href="../res/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="../res/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="../res/css/aos.css">
+
+    <link rel="stylesheet" href="../res/css/style.css">
+    <link rel="stylesheet" href="../res/css/style2.css">
 
 </head>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
-<body id="page-top">
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">DOCTIVE</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false"> Sign In </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/adminLogin">Admin / Nurse</a>
-                        <a class="dropdown-item" href="/doctorLogin">Doctor</a>
-{#                        <a class="dropdown-item" href="/nurseLogin">Nurse</a>#}
+
+
+
+<div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close mt-3">
+                <span class="icon-close2 js-menu-toggle"></span>
+            </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+    </div>
+
+
+    <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-6 col-xl-2">
+                    <h1 class="mb-0 site-logo"><a href="index.html" class="mb-0">Doctive</a></h1>
+                </div>
+
+                <div class="col-12 col-md-10 d-none d-xl-block">
+                    <nav class="site-navigation position-relative text-right" role="navigation">
+
+                        <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                            <li><a href="#home-section" class="nav-link">Home</a></li>
+{#                            <li class="has-children">#}
+{#                                <a href="#about-section" class="nav-link">About Us</a>#}
+{#                                <ul class="dropdown">#}
+{#                                    <li><a href="#team-section" class="nav-link">Team</a></li>#}
+{#                                    <li><a href="#pricing-section" class="nav-link">Pricing</a></li>#}
+{#                                    <li><a href="#faq-section" class="nav-link">FAQ</a></li>#}
+{#                                    <li class="has-children">#}
+{#                                        <a href="#">More Links</a>#}
+{#                                        <ul class="dropdown">#}
+{#                                            <li><a href="#">Menu One</a></li>#}
+{#                                            <li><a href="#">Menu Two</a></li>#}
+{#                                            <li><a href="#">Menu Three</a></li>#}
+{#                                        </ul>#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </li>#}
+
+{#                            <li><a href="#portfolio-section" class="nav-link">Portfolio</a></li>#}
+{#                            <li><a href="#services-section" class="nav-link">Services</a></li>#}
+{#                            <li><a href="#testimonials-section" class="nav-link">Testimonials</a></li>#}
+{#                            <li><a href="#blog-section" class="nav-link">Blog</a></li>#}
+{#                            <li><a href="#contact-section" class="nav-link">Contact</a></li>#}
+                            <li class="has-children">
+                                <a href="#about-section" class="nav-link">Sign In</a>
+                                <ul class="dropdown">
+                                    <li><a href="/adminLogin" class="nav-link">Admin</a></li>
+                                    <li><a href="/doctorLogin" class="nav-link">Doctor</a></li>
+                                    <li><a href="/v1/patient/viewEmergency" class="nav-link">Emergency Dept</a></li>
+                                    <li><a href="/analystLogin" class="nav-link">Data Analyst</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+
+
+                <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle float-right"><span class="icon-menu h3"></span></a></div>
+
+            </div>
+        </div>
+
+    </header>
+
+
+
+    <div class="site-blocks-cover overlay" style="background-image: url(../res/img/C.jpg);" data-aos="fade" id="home-section">
+
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+
+
+                <div class="col-md-8 mt-lg-5 text-center">
+                    <h1 class="text-uppercase mb-5" data-aos="fade-up">Habit-Change Support Web-Based System for Hospitals</h1>
+
+                    <div data-aos="fade-up" data-aos-delay="100">
+                        <a href="#contact-section" class="btn smoothscroll btn-primary mr-2 mb-2">Get In Touch</a>
                     </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-                </li>
-            </ul>
+                </div>
+
+            </div>
         </div>
     </div>
-</nav>
+</div>
 
-<!-- Masthead -->
-<header class="masthead">
+<script src="../res/js/new/jquery-3.3.1.min.js"></script>
+<script src="../res/js/new/jquery-ui.js"></script>
+<script src="../res/js/new/popper.min.js"></script>
+<script src="../res/js/new/bootstrap.min.js"></script>
+<script src="../res/js/new/owl.carousel.min.js"></script>
+<script src="../res/js/new/jquery.countdown.min.js"></script>
+<script src="../res/js/new/jquery.easing.1.3.js"></script>
+<script src="../res/js/new/aos.js"></script>
+<script src="../res/js/new/jquery.fancybox.min.js"></script>
+<script src="../res/js/new/jquery.sticky.js"></script>
+<script src="../res/js/new/isotope.pkgd.min.js"></script>
 
-    <div class="container h-100" src >
+
+<script src="../res/js/new/main.js"></script>
+
+</body>
+</html>
+
+
+
+{#Doctive - Old#}
+{#<!DOCTYPE html>#}
+{#<html lang="en" xmlns="http://www.w3.org/1999/html">#}
+
+{#<head>#}
+
+{#    <meta charset="utf-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">#}
+{#    <meta name="description" content="">#}
+{#    <meta name="author" content="">#}
+
+{#    <title>Doctive</title>#}
+
+{#    <!-- Font Awesome Icons -->#}
+{#    <link href="/res/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">#}
+{#    <!-- Google Fonts -->#}
+{#    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">#}
+{#    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>#}
+
+{#    <!-- Plugin CSS -->#}
+{#    <link href="/res/css/magnific-popup/magnific-popup.css" rel="stylesheet">#}
+
+{#    <!-- Theme CSS - Includes Bootstrap -->#}
+{#    <link href="/res/css/creative.min.css" rel="stylesheet">#}
+
+{#    <!-- Responsive CSS -->#}
+{#    <link rel="stylesheet" type="text/css" href="../res/css/responsive/responsive.css" >#}
+
+{#</head>#}
+
+{#<body id="page-top">#}
+
+
+
+{#<!-- Navigation -->#}
+{#<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">#}
+{#    <div class="container">#}
+{#        <a class="navbar-brand js-scroll-trigger" href="#page-top">DOCTIVE</a>#}
+{#        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">#}
+{#            <span class="navbar-toggler-icon"></span>#}
+{#        </button>#}
+{#        <div class="collapse navbar-collapse" id="navbarResponsive">#}
+{#            <ul class="navbar-nav ml-auto my-2 my-lg-0">#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link js-scroll-trigger" href="#about">About</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false"> Sign In </a>#}
+{#                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+{#                        <a class="dropdown-item" href="/adminLogin">Admin / Nurse</a>#}
+{#                        <a class="dropdown-item" href="/doctorLogin">Doctor</a>#}
+{#                        <a class="dropdown-item" href="/nurseLogin">Nurse</a>#}
+{#                    </div>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
+{#    </div>#}
+{#</nav>#}
+
+
+{#<!-- Masthead -->#}
+{#<header class="masthead">#}
+{#    <section class="dorne-welcome-area bg-img bg-overlay" style="background-image: url(../res/img/C.jpg);">#}
+{#        <div class="container-fluid h-100">#}
+
 {#        <div style="background-image: url('A.jpg');"></div>#}
 
-        <div class="row h-100 align-items-center justify-content-center text-center"><img src="/res/img/A.jpg" background-position="centre">
+{#        <div class="row h-100 align-items-center justify-content-center text-center">#}
+{#            <img src="/res/img/A.jpg" background-position="centre">#}
 {#            <img class="background-img" src="/res/img/A.jpg" height="100%">#}
-            <div class="col-lg-10 align-self-end">
 
-                <h1 class="text-uppercase text-white font-weight-bold">DOCTIVE</h1>
-                <h1 class="text-white-50 text-white font-weight-bold">Habit-Change Support Web-Based System for Hospitals</h1>
-                <hr class="divider my-4">
-            </div>
-            <div class="col-lg-8 align-self-baseline">
-                <p class="text-white-75 font-weight-light mb-5">“Striving to create a healthier tomorrow.”</p>
-                <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
-            </div>
-        </img>
-        </div>
-    </div>
-</header>
+{#            <div class="col-12 col-md-10">#}
+{#                <div class="col-lg-10 align-self-end">#}
 
-<!-- About Section -->
-<section class="page-section bg-primary" id="about">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <h2 class="text-white mt-0">We've got what you need!</h2>
-                <hr class="divider light my-4">
+{#                <h1 class="text-uppercase text-white font-weight-bold">DOCTIVE</h1>#}
+{#                <h1 class="text-white-50 text-white font-weight-bold">Habit-Change Support Web-Based System for Hospitals</h1>#}
+{#                <hr class="divider my-4">#}
+{#            </div>#}
+{#            <div class="col-lg-8 align-self-baseline">#}
+{#                <p class="text-white-75 font-weight-light mb-5">“Striving to create a healthier tomorrow.”</p>#}
+{#                <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>#}
+{#            </div>#}
+{#        </img>#}
+{#        </div>#}
+{#    </div>#}
+{#    </section>#}
+{#</header>#}
+
+{#<!-- About Section -->#}
+{#<section class="page-section bg-primary" id="about">#}
+{#    <div class="container">#}
+{#        <div class="row justify-content-center">#}
+{#            <div class="col-lg-8 text-center">#}
+{#                <h2 class="text-white mt-0">We've got what you need!</h2>#}
+{#                <hr class="divider light my-4">#}
 {#                <p class="text-white-50 mb-4">Start Bootstrap has everything you need to get your new website up and running in no time! Choose one of our open source, free to download, and easy to use themes! No strings attached!</p>#}
-                <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
-            </div>
-        </div>
-    </div>
-</section>
+{#                <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</section>#}
 
 
-<!-- Footer -->
-<footer class="bg-light py-5">
-    <div class="container">
-        <div class="small text-center text-muted">Copyright &copy; 2019 - Start Bootstrap</div>
-    </div>
-</footer>
+{#<!-- Footer -->#}
+{#<footer class="bg-light py-5">#}
+{#    <div class="container">#}
+{#        <div class="small text-center text-muted">Copyright &copy; 2019 - Start Bootstrap</div>#}
+{#    </div>#}
+{#</footer>#}
 
-<!-- Bootstrap core JavaScript -->
-<script src="/res/js/jquery/dist/jquery.min.js"></script>
-
-
-<!-- Plugin JavaScript -->
-<script src="/res/js/jquery-easing/jquery.easing.min.js"></script>
-<script src="/res/js/magnific-popup/jquery.magnific-popup.min.js"></script>
-
-<!-- Custom scripts for this template -->
-<script src="/res/js/creative.min.js"></script>
+{#<!-- Bootstrap core JavaScript -->#}
+{#<script src="/res/js/jquery/dist/jquery.min.js"></script>#}
 
 
-<script src="/res/js/jquery/dist/jquery.min.js"></script>
-<script src="/res/js/popper.js/dist/umd/popper.min.js"></script>
-<script src="/res/css/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/res/js/main.js"></script>
+{#<!-- Plugin JavaScript -->#}
+{#<script src="/res/js/jquery-easing/jquery.easing.min.js"></script>#}
+{#<script src="/res/js/magnific-popup/jquery.magnific-popup.min.js"></script>#}
+
+{#<!-- Custom scripts for this template -->#}
+{#<script src="/res/js/creative.min.js"></script>#}
+
+
+{#<script src="/res/js/jquery/dist/jquery.min.js"></script>#}
+{#<script src="/res/js/popper.js/dist/umd/popper.min.js"></script>#}
+{#<script src="/res/css/bootstrap/dist/js/bootstrap.min.js"></script>#}
+{#<script src="/res/js/main.js"></script>#}
 
 
 {#<script src="../res/js/chart.js/dist/Chart.bundle.min.js"></script>#}
@@ -137,6 +295,6 @@
 {#<script src="../res/js/others/plugins.js"></script>#}
 {#<!-- Active JS -->#}
 {#<script src="../res/js/active.js"></script>#}
-</body>
+{#</body>#}
 
-</html>
+{#</html>#}

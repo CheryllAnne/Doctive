@@ -1,5 +1,8 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
+
+use Kreait\Firebase\ServiceAccount;
+use PHPMailer\PHPMailer\PHPMailer;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use Kreait\Firebase\Factory;
@@ -12,6 +15,11 @@ include_once '../app/controller/Admin.php'; //just added 18/02
 include_once '../app/controller/Patient.php'; //just added 18/02
 include_once '../app/controller/Doctor.php'; // adding this solved error : Callable 'Doctor' not defined (Runtime Exception)
 include_once '../app/controller/Behabit.php';
+include_once '../app/controller/Analyst.php';
+include_once '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+include_once '../vendor/phpmailer/phpmailer/src/SMTP.php';
+include_once '../vendor/phpmailer/phpmailer/src/Exception.php';
+include_once 'res/phpmailer/PHPMailerAutoload.php';
 include_once '../app/routes.php';
 
 //$app = new \Slim\App;
@@ -68,8 +76,17 @@ $container['AppController'] = function ($container)
 $container['Behabit'] = function ($container)
 {
     $session = $container->get('Session');
-    $behabit = new AppController($session);
+    $behabit = new Behabit($session);
     return $behabit;
+
+};
+
+$container['Analyst'] = function ($container)
+{
+    $session = $container->get('Session');
+    $analyst = new Analyst($session);
+    return $analyst;
+
 };
 
 $app->run();

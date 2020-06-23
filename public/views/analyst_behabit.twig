@@ -40,41 +40,18 @@
                 <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand" href="/"><img src="images/logo.png" alt="Doctive"></a>
-            <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
         </div>
 
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="/doctorHome"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="/analystHome"> <i class="menu-icon fa fa-home"></i>Dashboard </a>
                 </li>
-                <h3 class="menu-title">Hospital Patients</h3><!-- /.menu-title -->
+                <h3 class="menu-title">Behabit - Doctive</h3><!-- /.menu-title -->
 
                 <li>
-                    <a href="/v1/doctor/viewAppointment"> <i class="menu-icon ti-email"></i> View My Appointments </a>
+                    <a href="/v1/analyst/behabitUsers"> <i class="menu-icon ti-user"></i>List of Users </a>
                 </li>
-                <li>
-                    <a href="/v1/doctor/view"> <i class="menu-icon ti-email"></i> View My Patients </a>
-                </li>
-                <li>
-                    <a href="/v1/patient/view"> <i class="menu-icon ti-email"></i> Search Patient Record </a>
-                </li>
-                {#                <li>#}
-                {#                    <a href="/v1/patient/view"> <i class="menu-icon ti-email"></i> Prescriptions </a>#}
-                {#                </li>#}
-
-                <!--------------------------------------- Behabit Segment --------------------------------------------->
-
-                <h3 class="menu-title">Behabit</h3><!-- /.menu-title -->
-
-                <li>
-                    <a href="/v1/doctor/behabitUsers"> <i class="menu-icon ti-email"></i>List of Users </a>
-                </li>
-                <li>
-                    <a href="widgets.html"> <i class="menu-icon ti-email"></i>Analyze Users </a>
-                </li>
-
-                <!--------------------------------------- Behabit Segment --------------------------------------------->
 
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -172,7 +149,7 @@
             <div class="col-sm-5">
                 <div class="user-area dropdown float-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                        <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="Admin">
                     </a>
 
                     <div class="user-menu dropdown-menu">
@@ -216,7 +193,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Dashboard</h1>
+                    <h1>Behabit-Doctive</h1>
                 </div>
             </div>
         </div>
@@ -224,9 +201,9 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Table</a></li>
-                        <li class="active">Data table</li>
+                        {#                        <li><a href="#">Dashboard</a></li>#}
+                        {#                        <li><a href="#">Table</a></li>#}
+                        {#                        <li class="active">Data table</li>#}
                     </ol>
                 </div>
             </div>
@@ -240,29 +217,40 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Patients</strong>
+                            <strong class="card-title">Behabit Users List</strong>
                         </div>
                         <div class="card-body">
                             <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Ic No.</th>
-                                    <th>Doctor Name</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <th>Remarks</th>
+                                    <th>Username</th>
+                                    <th>Age</th>
+                                    <th>Sex</th>
+                                    <th>Status</th>
+                                    <th>Weight</th>
+                                    <th>Height</th>
+                                    <th>BMI</th>
+                                    <th>BMR</th>
+                                    <th>Smoker</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for i in range(0,i-1) %}
                                     <tr>
-                                        <td>{{ appointments[i].name }}</td>
-                                        <td>{{ appointments[i].icNo }}</td>
-                                        <td>{{ appointments[i].drName }}</td>
-                                        <td>{{ appointments[i].date }}</td>
-                                        <td>{{ appointments[i].time }}</td>
-                                        <td>{{ appointments[i].remarks }}</td>
+                                        <td>{{ behabitUsers[i].name }}</td>
+                                        <td>{{ behabitUsers[i].age }}</td>
+                                        <td>{{ behabitUsers[i].sex }}</td>
+                                        <td>{{ behabitUsers[i].status }}</td>
+                                        <td>{{ behabitUsers[i].weight }}</td>
+                                        <td>{{ behabitUsers[i].height }}</td>
+                                        <td>{{ behabitUsers[i].BMI }}</td>
+                                        <td>{{ behabitUsers[i].BMR }} calories/day</td>
+                                        <td>{{ behabitUsers[i].smoker }}</td>
+
+                                        <td>
+                                            <a href="/v1/analyst/update/{{ behabitUsers[i].behabitID }}" class="btn btn-outline-light" role="button" aria-pressed="true"
+                                               style="background: #0c5460; color: #fff; font-weight: normal; padding: auto">Upload Decision Tree</a>
+                                        </td>
                                     </tr>
                                 {% endfor %}
 

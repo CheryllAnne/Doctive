@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="/res/css/themify-icons/css/themify-icons.css">
     <link rel="stylesheet" href="/res/css/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="/res/css/selectFX/css/cs-skin-elastic.css">
+{#    <link href="css/timepicker.css" type="text/css" rel="stylesheet" />#}
+
+
+
 
     <link rel="stylesheet" href="/res/css/style.css">
 
@@ -42,25 +46,27 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="/adminHome"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="/adminHome"> <i class="menu-icon fa fa-home"></i>Dashboard </a>
                 </li>
                 <h3 class="menu-title">Administration</h3><!-- /.menu-title -->
 
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Register New Patient</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-th"></i><a href="/registerPatient">Registration Form</a></li>
+                        <li><i class="menu-icon fa fa-address-card"></i><a href="/registerPatient">Registration Form</a></li>
                         {#                        <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>#}
                     </ul>
                 </li>
+
+                {#                Include appointments with patient list#}
+                {#                <li>#}
+                {#                    <a href="/scheduleApp"> <i class="menu-icon ti-email"></i> Schedule Appointments </a>#}
+                {#                </li>#}
                 <li>
-                    <a href="/scheduleApp"> <i class="menu-icon ti-email"></i> Schedule Appointments </a>
+                    <a href="/v1/patient/viewAppointment"> <i class="menu-icon ti-bell"></i> Appointments </a>
                 </li>
                 <li>
-                    <a href="/v1/patient/viewAppointment"> <i class="menu-icon ti-email"></i> Appointments </a>
-                </li>
-                <li>
-                    <a href="/v1/patient/view"> <i class="menu-icon ti-email"></i> All Patients </a>
+                    <a href="/v1/patient/view"> <i class="menu-icon ti-user"></i> All Patients </a>
                 </li>
 
 
@@ -68,15 +74,15 @@
 
 
                 <li>
-                    <a href="/v1/patient/behabitUsers"> <i class="menu-icon ti-email"></i>List of Users </a>
+                    <a href="/v1/patient/behabitUsers"> <i class="menu-icon ti-user"></i>List of Users </a>
                 </li>
                 <li>
-                    <a href="/dataUpdate"> <i class="menu-icon ti-email"></i>Data Update </a>
+                    <a href="/dataUpdate"> <i class="menu-icon ti-world"></i>Data Update </a>
                 </li>
 
                 <h3 class="menu-title">Doctors</h3><!-- /.menu-title -->
                 <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Doctors List</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list"></i>Doctors List</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Specialists</a></li>
                         <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">General Physician</a></li>
@@ -87,10 +93,10 @@
                 <h3 class="menu-title">Others</h3><!-- /.menu-title -->
 
                 <li>
-                    <a href="/adminRegister"> <i class="menu-icon ti-email"></i>Register New Admin </a>
+                    <a href="/adminRegister"> <i class="menu-icon fa fa-id-card-o"></i>Register New Admin </a>
                 </li>
                 <li>
-                    <a href="/doctorRegister"> <i class="menu-icon ti-email"></i>Register New Doctor </a>
+                    <a href="/doctorRegister"> <i class="menu-icon fa fa-id-card"></i>Register New Doctor </a>
                 </li>
 
             </ul>
@@ -99,14 +105,27 @@
 </aside><!-- /#left-panel -->
 
 <!-- Left Panel -->
+<br/>
+{% if result == true  %}
+    <div class="alert  alert-success alert-dismissible fade show" role="alert">
+        <strong>Success</strong>{{ session.add }}
+    </div>
+{% else %}
+    <div class="alert  alert-info alert-dismissible fade show" role="alert">
+        <strong>{{ session.error }}</strong>
+    </div>
+{% endif %}
 
-<div class="col-lg-6">
+
+<div class="col-md-12" >
 
     <div class="card">
 
         <div class="card-header">
             <strong>Schedule Appointment</strong>
         </div>
+        {% for i in range(0,0) %}
+
         <div class="card-body card-block">
             <form action="/v1/patient/app" method="post" enctype="multipart/form-data" class="form-horizontal">
                 {#                    <div class="row form-group">#}
@@ -117,11 +136,11 @@
                 {#                    </div>#}
                 <div class="row form-group">
                     <div class="col col-md-3"><label for="text-input" class=" form-control-label">Full Name</label></div>
-                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="name" placeholder="Name" class="form-control"><small class="form-text text-muted">Patient's full name as per NRIC</small></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="name" placeholder="Name" value="{{ patients[i].name }}" class="form-control"><small class="form-text text-muted">Patient's full name as per NRIC</small></div>
                 </div>
                 <div class="row form-group">
                     <div class="col col-md-3"><label for="text-input" class=" form-control-label">Identification Card No.</label></div>
-                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="icNo" placeholder="IC No." class="form-control"><small class="form-text text-muted">IC number without '-'</small></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="icNo" placeholder="IC No." value="{{ patients[i].icNo }}" class="form-control"><small class="form-text text-muted">IC number without '-'</small></div>
                 </div>
 
                 <div class="row form-group">
@@ -151,9 +170,28 @@
 {#                        $('.clockpicker').clockpicker();#}
 {#                    </script>#}
 
+{#                    <div class="md-form md-outline">#}
+{#                        <input type="time" name="time" id="default-picker" class="form-control" placeholder="Select time">#}
+{#                        <label for="default-picker">Default Time Picker</label>#}
+{#                    </div>#}
                     <div class="col col-md-3"><label for="input_starttime">Appointment Time</label></div>
-                    <div class="col-12 col-md-9"><input placeholder="Selected time" type="time" id="input_starttime" name="time" class="form-control timepicker"></div>
+                    <div class="col-12 col-md-9">
+                        <select name="time" id="select" class="form-control">
+                            <option value="0">Select Time Slot</option>
+                            <option value="9.00am">9.00 am</option>
+                            <option value="11.00am">11.00 am</option>
+                            <option value="2.00pm">2.00 pm</option>
+                            <option value="4.00pm">4.00 pm</option>
+                        </select>
+                    </div>
 
+{#                    <div class="col-12 col-md-9"><input placeholder="Selected time" type="time" id="input_starttime" name="time" class="form-control time"></div>#}
+{#                    <script>#}
+{#                        $('#input_starttime').pickatime({#}
+{#// Light or Dark theme#}
+{#                            darktheme: true#}
+{#                        });#}
+{#                    </script>#}
                 </div>
 
                 <div class="row form-group">
@@ -173,18 +211,24 @@
 
             </form>
         </div>
+
+        {% endfor %}
     </div>
 
-    <br/>{{ session.add }}{{ session.error }}<br/>
+{#    <div class="alert  alert-info alert-dismissible fade show" role="alert">#}
+{#        <strong>{{ session.add }}{{ session.error }}</strong>#}
+{#    </div>#}
+{#    <br/>{{ session.add }}{{ session.error }}<br/>#}
+
 
 </div>
 
-<script>
-    $('#input_starttime').pickatime({
-// Light or Dark theme
-        darktheme: true
-    });
-</script>
+{#<script>#}
+{#    $('#input_starttime').pickatime({#}
+{#// Light or Dark theme#}
+{#        darktheme: true#}
+{#    });#}
+{#</script>#}
 
 </body>
 

@@ -1,0 +1,225 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Doctive</title>
+    <meta name="description" content="Doctive">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+    <link rel="stylesheet" href="/res/css/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/res/css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/res/css/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="/res/css/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="/res/css/selectFX/css/cs-skin-elastic.css">
+
+    <link rel="stylesheet" href="/res/css/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+<!-- Left Panel -->
+
+<aside id="left-panel" class="left-panel">
+    <nav class="navbar navbar-expand-sm navbar-default">
+
+        <div class="navbar-header">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="/"><img src="images/logo.png" alt="Doctive"></a>
+{#            <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>#}
+        </div>
+
+        <div id="main-menu" class="main-menu collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/adminHome"> <i class="menu-icon fa fa-home"></i>Dashboard </a>
+                </li>
+                <h3 class="menu-title">Administration</h3><!-- /.menu-title -->
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Register New Patient</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="menu-icon fa fa-address-card"></i><a href="/registerPatient">Registration Form</a></li>
+                        {#                        <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>#}
+                    </ul>
+                </li>
+
+                {#                Include appointments with patient list#}
+                {#                <li>#}
+                {#                    <a href="/scheduleApp"> <i class="menu-icon ti-email"></i> Schedule Appointments </a>#}
+                {#                </li>#}
+                <li>
+                    <a href="/v1/patient/viewAppointment"> <i class="menu-icon ti-bell"></i> Appointments </a>
+                </li>
+                <li>
+                    <a href="/v1/patient/view"> <i class="menu-icon ti-user"></i> All Patients </a>
+                </li>
+
+
+                <h3 class="menu-title">Behabit - Doctive</h3><!-- /.menu-title -->
+
+
+                <li>
+                    <a href="/v1/patient/behabitUsers"> <i class="menu-icon ti-user"></i>List of Users </a>
+                </li>
+                <li>
+                    <a href="/dataUpdate"> <i class="menu-icon ti-world"></i>Data Update </a>
+                </li>
+
+                <h3 class="menu-title">Doctors</h3><!-- /.menu-title -->
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list"></i>Doctors List</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Specialists</a></li>
+                        <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">General Physician</a></li>
+                        <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">On Duty</a></li>
+                    </ul>
+                </li>
+
+                <h3 class="menu-title">Others</h3><!-- /.menu-title -->
+
+                <li>
+                    <a href="/adminRegister"> <i class="menu-icon fa fa-id-card-o"></i>Register New Admin </a>
+                </li>
+                <li>
+                    <a href="/doctorRegister"> <i class="menu-icon fa fa-id-card"></i>Register New Doctor </a>
+                </li>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</aside><!-- /#left-panel -->
+
+<!-- Left Panel -->
+<br/>
+{% if result == true  %}
+    <div class="alert  alert-success alert-dismissible fade show" role="alert">
+        <strong>Success</strong>{{ session.add }}
+    </div>
+{% else %}
+    <div class="alert  alert-info alert-dismissible fade show" role="alert">
+        <strong>{{ session.error }}</strong>
+    </div>
+{% endif %}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong>Update Patient Details</strong>
+        </div>
+
+        {% for i in range(0,0) %}
+        <div class="card-body card-block">
+            <form action="/v1/patient/update/{{ patients[i].patientId }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Full Name</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="name" placeholder="Name" value= "{{ patients[i].name }}" class="form-control"><small class="form-text text-muted">Patient's full name as per NRIC</small></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Identification Card No.</label></div>
+                    <div class="col-12 col-md-9"><input type="number" id="text-input" name="icNo" placeholder="IC No." value= "{{ patients[i].icNo }}" class="form-control"><small class="form-text text-muted">IC number without '-'</small></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="email-input" class=" form-control-label">Age</label></div>
+                    <div class="col-12 col-md-9"><input type="number" id="text-input" name="age" placeholder="" value= "{{ patients[i].age }}" class="form-control"><small class="form-text text-muted">Age in this current year</small></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="select" class=" form-control-label">Sex</label></div>
+                    <div class="col-12 col-md-9">
+                        <select name="sex" id="select" class="form-control">
+                            <option value="0">{{ patients[i].sex }}</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="select" class=" form-control-label">Marital Status</label></div>
+                    <div class="col-12 col-md-9">
+                        <select name="status" id="select" class="form-control">
+                            <option value="{{ patients[i].status }}">{{ patients[i].status }}</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="email-input" class=" form-control-label">Height</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="height" placeholder="" value= "{{ patients[i].height }}" class="form-control"></div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="email-input" class=" form-control-label">Weight</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="weight" placeholder="" value= "{{ patients[i].weight }}" class="form-control"></div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label class=" form-control-label">Medical Card</label></div>
+                    <div class="col col-md-9">
+                        <div class="form-check-inline form-check">
+                            <label for="inline-radio1" class="form-check-label ">
+                                <input type="radio" id="inline-radio1" name="medCard" value="Yes" class="form-check-input">Yes
+                            </label>
+                            <label for="inline-radio2" class="form-check-label ">
+                                <input type="radio" id="inline-radio2" name="medCard" value="No" class="form-check-input">No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="email-input" class=" form-control-label">Medical Card No.</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="medCardNo" placeholder="" value= "{{ patients[i].medCardNo }}" class="form-control"></div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="email-input" class=" form-control-label">Email address</label></div>
+                    <div class="col-12 col-md-9"><input type="email" id="text-input" name="email" placeholder="abc123@abc.com" value= "{{ patients[i].email }}" class="form-control"></div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Address</label></div>
+                    <div class="col-12 col-md-9"><textarea name="address" id="textarea-input" rows="5" placeholder=" " class="form-control">{{ patients[i].address }}</textarea></div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Medical History</label></div>
+                    <div class="col-12 col-md-9"><textarea name="medHistory" id="textarea-input" rows="9" placeholder=" " class="form-control">{{ patients[i].medHistory }}</textarea></div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="email-input" class=" form-control-label">Patient Contact No.</label></div>
+                    <div class="col-12 col-md-9"><input type="number" id="text-input" name="contactNo" placeholder="" value="{{ patients[i].contactNo }}" class="form-control"></div>
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary" style="background: #0c5460; color: #fff; font-weight: normal; padding: auto">
+                        <i class="fa fa-dot-circle-o"></i> Update
+                    </button>
+                    <a href="/v1/admin/updateEmgcy/{{ patients[i].icNo }}" class="btn btn-outline-light" role="button" aria-pressed="true"
+                       style="background: #0c5460; color: #fff; font-weight: normal; padding: auto">Emergency Update</a>
+
+                </div>
+
+            </form>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>

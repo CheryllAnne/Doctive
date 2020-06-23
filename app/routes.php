@@ -32,11 +32,15 @@ $app->get('/registerPatient', Home::class . ':registerPatient');
 
 $app->get('/adminHome', Home::class . ':admin');
 
-$app->get('/doctorHome', Home::class . ':doctor'); //add codes for this
+$app->get('/doctorHome', Home::class . ':doctor');
+
+$app->get('/analystHome', Home::class . ':analyst');
 
 $app->get('/dataUpdate', Home::class . ':behabitData');
 
 $app->get('/analyzeData', Home::class . ':analyzeData');
+
+$app->get('/tableau', Home::class . ':tableau');
 
 $app->get('/doctorLogin', Home::class . ':doctorLogin');
 
@@ -48,22 +52,39 @@ $app->get('/viewHabits', Home::class . ':viewHabits');
 
 $app->get('/doctorRegister', Home::class . ':doctorRegister');
 
+$app->get('/highlightAppts', Home::class . ':highlightAppointment');
+
+$app->get('/prescription', Home::class . ':prescription');
+
+$app->get('/analystLogin', Home::class . ':analystLogin');
+
+
 
 $app->group('/v1/admin', function () use ($app){
 
-        $app->get('/', Admin::class . ':index');
+//    $app->get('/', Admin::class . ':index');
 
-        $app->post('/login', Admin::class . ':loginAdmin');
+    $app->post('/login', Admin::class . ':loginAdmin');
 
-        $app->post('/new', Admin::class . ':newAdmin');
+    $app->post('/new', Admin::class . ':newAdmin');
 
-        $app->post('/data', Admin::class . ':dataUpdate'); // update Behabit_Doctive data
+    $app->get('/setApp/{patientId}', Admin::class . ':appointmentForm');
+
+    $app->get('/update/{patientId}', Admin::class . ':updatePRecords');
+
+    $app->get('/updateEmgcy/{icNo}', Admin::class . ':updateERecords');
+
+    $app->post('/deletePatient/{patientId}', Admin::class . ':deletePatient');
+
+//    $app->get('/logout', Admin::class . ':logout');
 
 });
 
 $app->group('/v1/patient', function () use ($app){
 
     $app->post('/register', Patient::class . ':registerPatient' );
+
+    $app->post('/update/{patientId}', Patient::class . ':updatePatient' );
 
     $app->get('/view', Patient::class . ':viewPatients');
 
@@ -75,34 +96,58 @@ $app->group('/v1/patient', function () use ($app){
 
     $app->get('/behabitUsers', Patient::class . ':behabitUser');
 
-    $app->post('/image', Patient::class . ':fileUpload');
-
     $app->post('/history', Patient::class . ':medHistory');
 
-    $app->get('/viewMedHistory', Patient::class . ':viewMedHistory');
+    $app->get('/viewMedHistory/{icNo}', Patient::class . ':viewMedHistory');
 
-    $app->get('/userHabits', Patient::class . ':viewHabits');
+    $app->get('/userHabits/{behabitID}', Patient::class . ':viewHabits');
+
+    $app->get('/searchPatient', Patient::class . ':searchPatient');
+
+    $app->get('/viewEmergency', Patient::class . ':viewEmergency');
+
+    $app->post('/deleteEmgcy/{eID}', Patient::class . ':deleteEmergency');
+
+    $app->post('/updateEmergency/{patientIcNo}', Patient::class . ':updateEmergency' );
 });
 
-$app->group('/v1/doctor', function () use ($app){
 
-//    $app->get('/', Doctor::class . ':index');
+$app->group('/v1/doctor', function () use ($app){
 
     $app->post('/login', Doctor::class . ':loginDoctor');
 
     $app->get('/view', Doctor::class . ':viewPatients');
 
+    $app->get('/patientReport/{patientId}', Doctor::class . ':patientReport');
+
     $app->get('/behabitUsers', Doctor::class . ':behabitUser');
 
     $app->get('/viewAppointment', Doctor::class . ':viewAppointment');
 
+    $app->get('/searchPatient', Doctor::class . ':searchPatient');
+
+    $app->post('/deleteAppt/{appNo}', Doctor::class . ':deleteAppt');
+
+    $app->post('/sendPres', Doctor::class . ':sendPrescription');
+
+    $app->get('/wekaAnalyze', Doctor::class . ':wekaAnalyze');
+
+    $app->post('/analysisUpdate/{behabitID}', Doctor::class . ':analysisUpdate');
 
     $app->post('/new', Doctor::class . ':newDoctor');
 
 });
-//
 
-//
-//$app->get('/adminLogin', Home::class . ':adminLogin');
-//
-//$app->get('/admin', Home::class . ':admin');
+$app->group('/v1/analyst', function () use ($app) {
+
+    $app->post('/login', Analyst::class . ':loginAnalyst');
+
+    $app->get('/behabitUsers', Analyst::class . ':behabitUser');
+
+    $app->post('/image', Analyst::class . ':decisionTree');
+
+    $app->post('/image/{behabitID}', Analyst::class . ':decisionTree');
+
+    $app->get('/update/{behabitID}', Analyst::class . ':analysisForm');
+
+});

@@ -4,6 +4,7 @@
         "ext-json": "*",
         "twig/twig": "^2.0",
         "slim/slim": "3.*",
-        "kreait/firebase-php": "^4.35"
+        "kreait/firebase-php": "^4.35",
+        "phpmailer/phpmailer": "~5.2"
     }
 }
